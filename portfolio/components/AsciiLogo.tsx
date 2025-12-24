@@ -32,7 +32,11 @@ export default function AsciiLogo() {
     <AnimatePresence mode="wait">
       <motion.div
         key={`frame-${frame}`}
-        className="inline-block select-none"
+        className="inline-block select-none relative"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.5 }}
         style={{
           fontFamily: "'Courier New', Courier, monospace",
           fontSize: "20px",
@@ -48,10 +52,10 @@ export default function AsciiLogo() {
                 key={`${lineIndex}-${charIndex}-${frame}`}
                 initial={{
                   opacity: 0,
-                  y: Math.random() * 60 - 30,
-                  x: Math.random() * 30 - 15,
-                  rotate: Math.random() * 120 - 60,
-                  filter: "blur(12px)",
+                  y: Math.random() * 40 - 20,
+                  x: Math.random() * 20 - 10,
+                  rotate: Math.random() * 60 - 30,
+                  filter: "blur(8px)",
                 }}
                 animate={{
                   opacity: char === " " ? 0 : 1,
@@ -60,9 +64,16 @@ export default function AsciiLogo() {
                   rotate: 0,
                   filter: "blur(0px)",
                 }}
+                exit={{
+                  opacity: 0,
+                  y: Math.random() * 40 - 20,
+                  x: Math.random() * 20 - 10,
+                  rotate: Math.random() * 60 - 30,
+                  filter: "blur(8px)",
+                }}
                 transition={{
-                  duration: isInitialAnimationDone ? 0.6 : 0.8,
-                  delay: Math.random() * 0.6,
+                  duration: isInitialAnimationDone ? 0.4 : 0.6,
+                  delay: Math.random() * 0.3,
                   ease: "easeOut",
                 }}
                 style={{
@@ -70,8 +81,13 @@ export default function AsciiLogo() {
                   textShadow:
                     char !== " "
                       ? `
-                        0 0 20px rgba(255,255,255,0.9),
-                        0 0 50px rgba(255,255,255,0.6)
+                        0 0 5px #fff,
+                        0 0 10px #fff,
+                        0 0 15px #fff,
+                        0 0 20px #fff,
+                        0 0 25px #fff,
+                        0 0 30px #fff,
+                        0 0 35px #fff
                       `
                       : "none",
                 }}
