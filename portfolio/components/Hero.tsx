@@ -2,28 +2,45 @@
 
 import { motion } from "framer-motion";
 import AsciiLogo from "./AsciiLogo";
+import Navbar from "./Navbar";
 
 export default function Hero() {
   return (
-    <motion.section className="h-screen w-screen bg-black flex items-center justify-center relative overflow-hidden">
-      {/* NAME HEADER - Revealed from left */}
-      <motion.h1
-        initial={{ x: -500, opacity: 0 }}
-        animate={{ x: -500, opacity: 1 }}
-        transition={{ delay: 4, duration: 1.2, ease: "easeOut" }}
-        className="absolute left-12 text-white text-5xl font-bold tracking-wide"
-      >
-        Aman Adhikari
-      </motion.h1>
+    <>
+      {/* Navbar is outside the flex container */}
+      <Navbar />
+      
+      <motion.section className="h-screen w-screen bg-black flex items-center justify-center relative overflow-hidden">
+        {/* Background glow effect */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-white/5 rounded-full blur-[150px]" />
+        </div>
 
-      {/* ASCII Animation - Moves right */}
-      <motion.div
-        initial={{ x: 0 }}
-        animate={{ x: 80 }}
-        transition={{ delay: 4, duration: 1.2, ease: "easeInOut" }}
-      >
-        <AsciiLogo />
-      </motion.div>
-    </motion.section>
+        {/* NAME AND TITLE - Properly positioned on left */}
+        <motion.div
+          initial={{ opacity: 0, x: -500 }}
+          animate={{ opacity: 1, x: -300 }}
+          transition={{ delay: 3.5, duration: 1, ease: "easeOut" }}
+          className="absolute left-20 z-10"
+        >
+          <h1 className="text-white text-6xl font-bold tracking-wide">
+            Aman Adhikari
+          </h1>
+          <p className="text-gray-300 text-xl mt-4">
+            Software Engineer · Embedded Systems · AI
+          </p>
+        </motion.div>
+
+        {/* ASCII Animation - Starts center, moves right */}
+        <motion.div
+          initial={{ x: 0 }}
+          animate={{ x: 200 }}
+          transition={{ delay: 3, duration: 1.5, ease: "easeInOut" }}
+          className="text-white z-10"
+        >
+          <AsciiLogo />
+        </motion.div>
+      </motion.section>
+    </>
   );
 }

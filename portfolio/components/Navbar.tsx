@@ -10,12 +10,13 @@ export default function Navbar() {
 
   return (
     <motion.nav
-      className="fixed top-4 right-6 z-50 p-2"
+      className="fixed top-0 right-0 z-50 p-8"
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 4, duration: 1.2, ease: "easeOut" }}
+      transition={{ delay: 3.5, duration: 1, ease: "easeOut" }}
+      style={{ position: 'fixed', top: '2rem', right: '2rem' }}
     >
-      <div className="flex flex-wrap gap-x-6 gap-y-2 justify-end">
+      <div className="flex gap-8">
         <button
           onClick={() => scrollToSection('home')}
           className="text-white hover:text-gray-300 transition-colors text-lg font-medium"
