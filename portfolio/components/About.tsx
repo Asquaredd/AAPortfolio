@@ -43,17 +43,16 @@ export default function About() {
           transition={{ duration: 0.8, delay: 0.2 }}
         >
           <p>
-            I'm a software engineer passionate about building intelligent systems 
-            that bridge the gap between embedded hardware and artificial intelligence.
+            I'm a computer and electrical engineer passionate about electronics, software, design, and more. 
           </p>
           <p>
-            With expertise spanning from low-level firmware development to neural network 
-            architectures, I create solutions that push the boundaries of what's possible 
-            in modern computing.
+            I am a maker at heart and i enjoy a challege at takling the some of the worlds most challenging problems.
+            I design and prototype complete systems—spanning electronics, embedded software,
+            mechanical CAD, and rapid 3D-printed fabrication.
           </p>
           <p>
-            Currently focused on developing AI-powered tools for developers and exploring 
-            the intersection of quantum computing and machine learning.
+            Currently focused on developing and learning AI-powered tools for developers and discovery, 
+            Making the impossiple, possible. 
           </p>
         </motion.div>
       </div>
