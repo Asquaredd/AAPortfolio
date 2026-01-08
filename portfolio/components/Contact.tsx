@@ -1,138 +1,182 @@
 "use client";
 
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 export default function Contact() {
-  const ref = useRef(null);
+  const ref = useRef<HTMLElement | null>(null);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: ""
+  });
 
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start end", "end start"],
   });
 
-  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.5, 0.8, 1], [0, 0.8, 1, 1, 0.6]);
-  const scale = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.95, 1, 1, 0.98]);
-  const y = useTransform(scrollYProgress, [0, 0.5], [60, 0]);
-
-  // Slow blur reveal on content
-  const filter = useTransform(
+  const opacity = useTransform(
     scrollYProgress,
-    [0, 0.3, 0.6],
-    ["blur(12px)", "blur(4px)", "blur(0px)"]
+    [0, 0.2, 0.6, 1],
+    [0, 0.85, 1, 0.7]
   );
+
+  const scale = useTransform(
+    scrollYProgress,
+    [0, 0.2, 1],
+    [0.96, 1, 0.98]
+  );
+
+  const y = useTransform(scrollYProgress, [0, 0.5], [80, 0]);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Add your form submission logic here
+    console.log(formData);
+    // Reset form after submission
+    setFormData({ name: "", email: "", message: "" });
+  };
 
   return (
     <motion.section
       ref={ref}
       id="contact"
       style={{ opacity, scale, y }}
-      className="h-screen flex items-center justify-center px-8 md:px-20 bg-black relative overflow-hidden"
+      className="relative min-h-screen bg-white overflow-hidden flex items-center justify-center px-8 py-24"
     >
-      {/* Animated blurred white glow blobs */}
+      {/* BACKGROUND BLOBS */}
       <div className="absolute inset-0 pointer-events-none">
-        {/* Main large central blob - slowly rotating + scaling */}
         <motion.div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-white/20 rounded-full blur-[180px]"
-          animate={{
-            scale: [1, 1.2, 1],
-            rotate: [0, 180, 360],
-          }}
-          transition={{
-            duration: 40,
-            repeat: Infinity,
-            ease: "linear",
-          }}
-        />
-
-        {/* Secondary blob - offset, slower breathing pulse */}
-        <motion.div
-          className="absolute top-1/3 left-1/4 w-[600px] h-[600px] bg-white/15 rounded-full blur-[160px]"
-          animate={{
-            scale: [1.1, 0.9, 1.1],
-            x: ["0%", "10%", "-10%", "0%"],
-            y: ["0%", "-10%", "10%", "0%"],
-          }}
-          transition={{
-            duration: 30,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-
-        {/* Third subtle blob - floating feel */}
-        <motion.div
-          className="absolute bottom-1/4 right-1/3 w-[700px] h-[700px] bg-white/10 rounded-full blur-[200px]"
-          animate={{
-            scale: [0.9, 1.1, 0.9],
-            x: ["-5%", "15%", "-5%"],
-          }}
-          transition={{
-            duration: 50,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] bg-gray-200/30 rounded-full blur-[200px]"
+          animate={{ scale: [1, 1.2, 1], rotate: [0, 180, 360] }}
+          transition={{ duration: 50, repeat: Infinity, ease: "linear" }}
         />
       </div>
 
-      <motion.div
-        style={{ filter }}
-        className="max-w-3xl w-full z-10 text-center"
-      >
+      {/* CONTENT */}
+      <motion.div className="relative z-10 w-full max-w-5xl text-center">
         <motion.h2
-          className="text-6xl md:text-7xl font-extralight tracking-tight text-white/90 mb-10 leading-none"
+          className="text-5xl md:text-6xl font-light tracking-tight text-gray-900 mb-6 leading-none"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.2, ease: "easeOut" }}
           viewport={{ once: true }}
         >
-          Get In Touch
+          Let's Connect
         </motion.h2>
 
         <motion.p
-          className="text-lg md:text-xl font-light text-gray-400 tracking-wide max-w-2xl mx-auto mb-16 leading-relaxed"
+          className="text-lg md:text-xl font-light text-gray-600 tracking-wide max-w-2xl mx-auto mb-16 leading-relaxed"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.3 }}
           viewport={{ once: true }}
         >
-          Always open to strategic collaborations and forward-thinking projects.
+          Open to research, engineering, and high-impact collaborations.
         </motion.p>
 
+        {/* CONTACT FORM */}
         <motion.div
-          className="flex flex-col sm:flex-row items-center justify-center gap-6"
-          initial={{ opacity: 0, y: 30 }}
+          className="max-w-2xl mx-auto mb-16"
+          initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.6 }}
           viewport={{ once: true }}
         >
-          <motion.a
-            href="mailto:aman@example.com"
-            className="group relative px-10 py-4 border border-white/10 text-white text-sm font-medium tracking-wider uppercase overflow-hidden rounded-none backdrop-blur-sm transition-all duration-500 hover:border-white/40"
-            whileHover={{ scale: 1.04 }}
-            whileTap={{ scale: 0.98 }}
-          >
-            <span className="relative z-10">Send Message</span>
-            <motion.div
-              className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700"
-            />
-          </motion.a>
-
-          <motion.a
-            href="https://linkedin.com"
-            className="px-10 py-4 border border-white/10 text-white/80 text-sm font-medium tracking-wider uppercase rounded-none backdrop-blur-sm transition-all duration-500 hover:text-white hover:border-white/30"
-            whileHover={{ scale: 1.04 }}
-            whileTap={{ scale: 0.98 }}
-          >
-            LinkedIn Profile
-          </motion.a>
+          <form onSubmit={handleSubmit} className="space-y-5">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <div>
+                <input
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  className="w-full px-5 py-3.5 rounded-2xl border border-gray-200 focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all text-gray-900 placeholder-gray-500 text-base shadow-sm"
+                  placeholder="Your Name"
+                  required
+                />
+              </div>
+              <div>
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  className="w-full px-5 py-3.5 rounded-2xl border border-gray-200 focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all text-gray-900 placeholder-gray-500 text-base shadow-sm"
+                  placeholder="Your Email"
+                  required
+                />
+              </div>
+            </div>
+            <div>
+              <textarea
+                name="message"
+                value={formData.message}
+                onChange={handleChange}
+                rows={3}
+                className="w-full px-5 py-3.5 rounded-2xl border border-gray-200 focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all text-gray-900 placeholder-gray-500 text-base shadow-sm"
+                placeholder="Your Message"
+                required
+              />
+            </div>
+            <motion.button
+              type="submit"
+              className="w-full bg-gray-900 text-white font-medium py-3.5 px-6 rounded-2xl hover:bg-gray-800 transition-colors duration-300 text-base mt-2 shadow-md hover:shadow-lg"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              Send Message
+            </motion.button>
+          </form>
         </motion.div>
 
+        {/* CONTACT CARDS */}
         <motion.div
-          className="mt-20 w-32 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent mx-auto"
+          className="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-4xl mx-auto mb-16"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.9 }}
+          viewport={{ once: true }}
+        >
+          {/* EMAIL */}
+          <div className="group relative block p-6 rounded-2xl overflow-hidden bg-white border border-gray-200 text-gray-900 no-underline shadow-sm hover:shadow-md transition-shadow duration-300">
+            <div className="text-[11px] uppercase tracking-[0.35em] text-gray-500 mb-2">Email</div>
+            <div className="text-base font-light text-gray-900 tracking-wide">aman@example.com</div>
+          </div>
+
+          {/* LINKEDIN */}
+          <a
+            href="https://linkedin.com/in/yourprofile"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group relative block p-6 rounded-2xl overflow-hidden bg-white border border-gray-200 text-gray-900 no-underline outline-none focus:outline-none focus-visible:outline-none ring-0 focus:ring-0 transition-all duration-500 hover:-translate-y-1 shadow-sm hover:shadow-md"
+          >
+            <div className="text-[11px] uppercase tracking-[0.35em] text-gray-500 mb-2">LinkedIn</div>
+            <div className="text-base font-light text-gray-900 tracking-wide">View Profile</div>
+          </a>
+
+          {/* RESUME */}
+          <a
+            href="/resume.pdf"
+            className="group relative block p-6 rounded-2xl overflow-hidden bg-white border border-gray-200 text-gray-900 no-underline outline-none focus:outline-none focus-visible:outline-none ring-0 focus:ring-0 transition-all duration-500 hover:-translate-y-1 shadow-sm hover:shadow-md"
+          >
+            <div className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-3">Resume</div>
+            <div className="text-base font-light text-gray-900 tracking-wide">Download PDF</div>
+          </a>
+        </motion.div>
+
+        {/* DIVIDER */}
+        <motion.div
+          className="mt-8 mb-8 w-32 h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent mx-auto"
           initial={{ scaleX: 0 }}
           whileInView={{ scaleX: 1 }}
-          transition={{ duration: 1.5, delay: 1 }}
+          transition={{ duration: 1.5, delay: 1.2 }}
           viewport={{ once: true }}
         />
       </motion.div>
