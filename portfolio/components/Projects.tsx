@@ -1,22 +1,25 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import { useRef, useState } from "react";
 
 export default function Projects() {
-  const ref = useRef(null);
-  
+  const ref = useRef<HTMLDivElement | null>(null);
+  const [activeProject, setActiveProject] = useState<any | null>(null);
+  const [imageIndex, setImageIndex] = useState(0);
+
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ["start end", "end start"]
+    offset: ["start end", "end start"],
   });
 
   const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
+
   const projects = [
     {
       title: "Object Detection for Laundry",
       caption: "Real-time computer vision pipeline",
-      image: "/projects/laundry.jpg",
+      images: ["/projects/laundry.jpg"],
       description:
         "Computer vision system for detecting, classifying, and tracking laundry items using real-time inference pipelines.",
       longDescription:
@@ -26,7 +29,7 @@ export default function Projects() {
     {
       title: "DQN Reinforcement Learning Agent",
       caption: "Deep reinforcement learning system",
-      image: "/projects/dqn.jpg",
+      images: ["/projects/dqn.jpg"],
       description:
         "Deep Q-Network agent trained in simulated environments with experience replay and target networks.",
       longDescription:
@@ -36,7 +39,7 @@ export default function Projects() {
     {
       title: "Telescope Drone – Mechanical Design",
       caption: "UAV-mounted telescope platform",
-      image: "/projects/telescope-mech.jpg",
+      images: ["images/Telescope.gif"],
       description:
         "Custom UAV-mounted telescope platform featuring 3D-printed gearboxes and alt-az gimbals.",
       longDescription:
@@ -44,86 +47,211 @@ export default function Projects() {
       tech: ["CAD", "Fusion 360", "OpenSCAD", "3D Printing"],
     },
     {
-      title: "Telescope Drone – Software & Tracking",
-      caption: "Star tracking & stabilization",
-      image: "/projects/telescope-software.jpg",
+      title: "CAN-Bus Tester",
+      caption: "Automotive network diagnostics & validation tool",
+      images: ["/projects/can-tester.jpg"],
       description:
-        "Onboard star-tracking and stabilization using sensor fusion and celestial transforms.",
+        "CAN-Bus diagnostic and testing tool for automotive electronic modules.",
       longDescription:
-        "Implements IMU fusion, celestial coordinate transforms, and vision-assisted alignment to stabilize and track astronomical targets in real time on embedded hardware.",
-      tech: ["Python", "Raspberry Pi", "IMU", "Astrometry"],
+        "A hardware and software platform for sniffing, injecting, and validating CAN-Bus traffic. Used for diagnostics, reverse engineering, and testing of automotive ECUs, including message decoding and fault injection.",
+      tech: [
+        "CAN-Bus",
+        "Embedded Systems",
+        "Automotive ECUs",
+        "Reverse Engineering",
+        "Microcontrollers",
+      ],
     },
     {
-      title: "Robotic Arm Simulation with Isaac Sim",
-      caption: "Physics-accurate robotic simulation",
-      image: "/projects/robot-arm.jpg",
+      title: "Analog Synthesizers",
+      caption: "Discrete analog audio synthesis systems",
+      images: ["/projects/analog-synth.jpg"],
       description:
-        "Robotic arm simulation with motion planning and teleoperation in Isaac Sim.",
+        "Analog audio synthesizer designs using discrete components and voltage-controlled circuits.",
       longDescription:
-        "A full robotics simulation pipeline using Isaac Sim, including URDF import, physics-based control, teleoperation, and sensor feedback loops.",
-      tech: ["Isaac Sim", "Python", "ROS", "URDF"],
+        "Design and prototyping of analog synthesizer circuits including oscillators, filters, envelope generators, and modulation paths. Focused on signal integrity, noise reduction, and hands-on debugging using oscilloscopes and test equipment.",
+      tech: [
+        "Analog Circuits",
+        "Voltage Controlled Oscillators (VCO)",
+        "Filters & Envelopes",
+        "Control Voltages",
+        "Oscilloscope",
+        "PCB Prototyping",
+      ],
     },
     {
-      title: "NGCP: Ground Control System",
-      caption: "Engineering dashboard platform",
-      image: "/projects/ngcp.jpg",
+      title: "FPV Drone Systems",
+      caption: "High-performance first-person-view UAV platforms",
+      images: ["/projects/fpv-drone.jpg"],
       description:
-        "Engineering dashboard for data visualization and workflow tracking.",
+        "Design, build, and tuning of FPV drone systems for high-speed and precision flight.",
       longDescription:
-        "A web-based ground control and monitoring system built with Vue.js and Redis for real-time state tracking, caching, and responsive UI updates.",
-      tech: ["Vue.js", "Redis", "Node.js", "REST APIs"],
+        "Development of FPV drone platforms including frame selection, motor and ESC matching, flight controller configuration, PID tuning, and video transmission systems. Emphasis on reliability, control responsiveness, and real-time telemetry during aggressive flight profiles.",
+      tech: [
+        "FPV Systems",
+        "Flight Controllers",
+        "PID Tuning",
+        "ESCs & Brushless Motors",
+        "Telemetry",
+        "Betaflight",
+      ],
     },
+    {
+      title: "Custom E-Bike Motor Controller",
+      caption: "High-power electric motor control system",
+      images: ["/projects/ebike-controller.jpg"],
+      description:
+        "Custom motor controller for electric bike applications with precise torque and speed control.",
+      longDescription:
+        "Design and development of a custom electric bike motor controller built around an STM32 microcontroller. The system implements PWM-based drive control, field-oriented control (FOC) principles, and ESC-style power stages for efficient and smooth motor operation. Inspired by VESC architectures, the controller integrates current sensing, throttle input processing, and protection mechanisms for reliable high-power operation.",
+      tech: [
+        "STM32",
+        "Field-Oriented Control (FOC)",
+        "PWM",
+        "ESC Design",
+        "VESC-Style Architecture",
+        "Motor Control",
+        "Power Electronics",
+      ],
+    }
+
+
   ];
 
-
   return (
-    <motion.section
-      ref={ref}
-      id="projects"
-      style={{ opacity }}
-      className="min-h-screen flex items-center justify-center px-20 bg-black relative py-20"
-    >
-      {/* Background glow */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/2 left-0 w-[700px] h-[700px] bg-white/5 rounded-full blur-[180px]" />
-      </div>
+    <>
+      <motion.section
+        ref={ref}
+        id="projects"
+        style={{ opacity }}
+        className="min-h-screen px-20 bg-black relative py-20"
+      >
+        {/* Background glow */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-1/2 left-0 w-[700px] h-[700px] bg-white/5 rounded-full blur-[180px]" />
+        </div>
 
-      <div className="max-w-6xl w-full z-10">
-        <motion.h2 
-          className="text-5xl font-bold text-white mb-12 text-center"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-        >
-          Projects
-        </motion.h2>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project, index) => (
+        <div className="max-w-6xl mx-auto relative z-10">
+          <motion.h2
+            className="text-5xl font-bold text-white mb-12 text-center"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            Projects
+          </motion.h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {projects.map((project, index) => (
+              <motion.div
+                key={project.title}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                whileHover={{ scale: 1.03 }}
+                onClick={() => {
+                  setActiveProject(project);
+                  setImageIndex(0);
+                }}
+                className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-6 cursor-pointer hover:bg-white/10 transition"
+              >
+                <h3 className="text-white text-xl font-bold mb-2">
+                  {project.title}
+                </h3>
+                <p className="text-gray-400 mb-4">{project.description}</p>
+                <div className="flex flex-wrap gap-2">
+                  {project.tech.map((tech) => (
+                    <span
+                      key={tech}
+                      className="px-3 py-1 bg-white/10 rounded-full text-sm text-gray-200"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </motion.section>
+
+      {/* ---------- MODAL ---------- */}
+      <AnimatePresence>
+        {activeProject && (
+          <motion.div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setActiveProject(null)}
+          >
             <motion.div
-              key={project.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              whileHover={{ scale: 1.05, transition: { duration: 0.2 } }}
-              className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-6 cursor-pointer hover:bg-white/10 transition-colors"
+              initial={{ scale: 0.9, y: 40 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.9, y: 40 }}
+              transition={{ duration: 0.3 }}
+              onClick={(e) => e.stopPropagation()}
+              className="bg-neutral-900 rounded-xl max-w-5xl w-full p-8 grid grid-cols-1 md:grid-cols-2 gap-8 border border-white/10"
             >
-              <h3 className="text-white text-2xl font-bold mb-3">{project.title}</h3>
-              <p className="text-gray-300 mb-4">{project.description}</p>
-              <div className="flex flex-wrap gap-2">
-                {project.tech.map((tech) => (
-                  <span
-                    key={tech}
-                    className="px-3 py-1 bg-white/10 rounded-full text-sm text-gray-200"
-                  >
-                    {tech}
-                  </span>
-                ))}
+              {/* Image Viewer */}
+              <div className="relative">
+                <img
+                  src={activeProject.images[imageIndex]}
+                  alt={activeProject.title}
+                  className="rounded-lg w-full h-80 object-cover"
+                />
+
+                {activeProject.images.length > 1 && (
+                  <div className="absolute bottom-3 right-3 flex gap-2">
+                    {activeProject.images.map((_: any, i: number) => (
+                      <button
+                        key={i}
+                        onClick={() => setImageIndex(i)}
+                        className={`w-3 h-3 rounded-full ${
+                          i === imageIndex
+                            ? "bg-white"
+                            : "bg-white/40"
+                        }`}
+                      />
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* Content */}
+              <div>
+                <h3 className="text-3xl font-bold text-white mb-2">
+                  {activeProject.title}
+                </h3>
+                <p className="text-gray-400 mb-4">
+                  {activeProject.caption}
+                </p>
+                <p className="text-gray-300 mb-6 leading-relaxed">
+                  {activeProject.longDescription}
+                </p>
+
+                <div className="flex flex-wrap gap-2">
+                  {activeProject.tech.map((tech: string) => (
+                    <span
+                      key={tech}
+                      className="px-3 py-1 bg-white/10 rounded-full text-sm text-gray-200"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+
+                <button
+                  onClick={() => setActiveProject(null)}
+                  className="mt-6 px-6 py-2 bg-white/10 hover:bg-white/20 rounded-lg text-white"
+                >
+                  Close
+                </button>
               </div>
             </motion.div>
-          ))}
-        </div>
-      </div>
-    </motion.section>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 }
