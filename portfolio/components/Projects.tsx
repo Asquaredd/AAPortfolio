@@ -24,7 +24,7 @@ export default function Projects() {
         "Computer vision system for detecting, classifying, and tracking laundry items using real-time inference pipelines.",
       longDescription:
         "This project implements an end-to-end object detection pipeline optimized for real-time inference. It uses YOLO-based architectures with PyTorch, OpenCV preprocessing, and optimized batching strategies for deployment.",
-      tech: ["Python", "PyTorch", "YOLO", "OpenCV"],
+      tech: ["Python", "PyTorch", "YOLOv11","YOLOv12", "RF-DETR", "ViT" ],
     },
     {
       title: "DQN Reinforcement Learning Agent",
@@ -34,10 +34,10 @@ export default function Projects() {
         "Deep Q-Network agent trained in simulated environments with experience replay and target networks.",
       longDescription:
         "A full Deep Q-Network implementation featuring experience replay buffers, target network synchronization, reward shaping, and performance tracking in Gymnasium environments.",
-      tech: ["Python", "PyTorch", "Gymnasium", "RL"],
+      tech: ["Python", "PyTorch", "OPENAI-Gymnasium", "RL"],
     },
     {
-      title: "Telescope Drone – Mechanical Design",
+      title: "Telescope Drone",
       caption: "UAV-mounted telescope platform",
       images: ["images/Telescope.gif"],
       description:
@@ -80,7 +80,7 @@ export default function Projects() {
       ],
     },
     {
-      title: "FPV Drone Systems",
+      title: "FPV Drones",
       caption: "High-performance first-person-view UAV platforms",
       images: ["/projects/fpv-drone.jpg"],
       description:
@@ -94,6 +94,7 @@ export default function Projects() {
         "ESCs & Brushless Motors",
         "Telemetry",
         "Betaflight",
+        "Ardupilot",
       ],
     },
     {
@@ -109,11 +110,30 @@ export default function Projects() {
         "Field-Oriented Control (FOC)",
         "PWM",
         "ESC Design",
-        "VESC-Style Architecture",
+        "VESC",
         "Motor Control",
         "Power Electronics",
       ],
+    },
+    {
+      title: "SO-Arm 101 Robotic Arm",
+      caption: "Servo-driven articulated robotic manipulator",
+      images: ["/projects/so-arm-101.jpg"],
+      description:
+        "Servo-driven robotic arm platform for motion control, kinematics, and simulation integration.",
+      longDescription:
+        "Development and control of a eight degree-of-freedom robotic arm using bus-controlled servo motors. The project includes joint-level control, coordinated motion sequences, and integration with simulation environments for kinematic validation. Emphasis on precision positioning, repeatability, and system-level control of articulated mechanisms.",
+      tech: [
+        "Robotics",
+        "Servo Motors",
+        "Inverse Kinematics",
+        "Motion Control",
+        "IssacSim/Issac Lab",
+        "Vison Laguange Action",
+        "Large Behavior Models"
+      ],
     }
+
 
 
   ];

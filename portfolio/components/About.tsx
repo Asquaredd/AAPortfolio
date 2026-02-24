@@ -9,25 +9,25 @@ import { Cpu, CircuitBoard, Code2, Wrench, Sparkles } from "lucide-react";
 -------------------------------- */
 const polaroids = [
   {
-    title: "Telescope/Space",
+    title: "Astrophotography",
     rotation: -8,
     x: -140,
     y: -80,
-    gradient: "from-indigo-500 to-purple-600",
+    image: "/images/me_space.jpg"
   },
   {
-    title: "3D printing",
+    title: "CNC & 3D Printing",
     rotation: 6,
     x: 120,
     y: -20,
-    gradient: "from-emerald-500 to-teal-600",
+    image: "/images/cncandprinter.jpg",
   },
   {
-    title: "Syntehsizers",
+    title: "Workshop",
     rotation: -4,
     x: 40,
     y: 120,
-    gradient: "from-orange-500 to-red-600",
+    image: "/images/workselfie.jpg",
   },
 ];
 
@@ -39,12 +39,12 @@ export default function About() {
     offset: ["start end", "end start"],
   });
 
-  /* Section motion */
   const sectionOpacity = useTransform(
     scrollYProgress,
     [0, 0.3, 0.7, 1],
     [0, 1, 1, 0]
   );
+
   const sectionScale = useTransform(
     scrollYProgress,
     [0, 0.3, 0.7, 1],
@@ -64,9 +64,7 @@ export default function About() {
       </div>
 
       <div className="max-w-6xl w-full z-10 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-        {/* --------------------------------
-            Text Content
-        -------------------------------- */}
+        {/* Text Content */}
         <div className="space-y-8 text-center lg:text-left">
           <motion.h2
             className="text-5xl md:text-6xl font-bold text-white"
@@ -99,7 +97,6 @@ export default function About() {
             </p>
           </motion.div>
 
-          {/* Icons */}
           <motion.div
             className="flex flex-wrap gap-6 justify-center lg:justify-start text-gray-400"
             initial={{ opacity: 0 }}
@@ -115,14 +112,12 @@ export default function About() {
           </motion.div>
         </div>
 
-        {/* --------------------------------
-            Scattered Polaroids
-        -------------------------------- */}
+        {/* Polaroids */}
         <div className="relative w-full h-[500px] flex items-center justify-center">
           {polaroids.map((p, i) => (
             <motion.div
               key={i}
-              className="absolute cursor-pointer"
+              className="absolute cursor-pointer group"
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
               whileHover={{
@@ -150,11 +145,16 @@ export default function About() {
               />
 
               {/* Polaroid */}
-              <div className="bg-white p-4 shadow-2xl rounded-sm w-56">
-                <div
-                  className={`h-48 rounded-sm bg-gradient-to-br ${p.gradient} flex items-center justify-center text-white font-bold text-lg`}
-                >
-                  {p.title}
+              <div className="w-60 p-4 rounded-xl shadow-[0_25px_60px_-15px_rgba(0,0,0,0.6)]
+                bg-gradient-to-br from-zinc-100 via-zinc-200 to-zinc-300
+                border border-white/30 backdrop-blur-md">
+                <div className="relative h-48 rounded-sm overflow-hidden">
+                  <div
+                    className="w-full h-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
+                    style={{
+                      backgroundImage: `url(${p.image})`,
+                    }}
+                  />
                 </div>
 
                 <div className="h-12 mt-2 text-center text-sm font-medium text-gray-700">
