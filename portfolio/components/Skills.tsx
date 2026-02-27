@@ -24,6 +24,13 @@ import {
   SiTypescript,
   SiGit,
   SiDocker,
+  SiVuedotjs,
+  SiHtml5,
+  SiPhp,
+  SiAltiumdesigner,
+  SiKicad,
+  SiPostgresql,
+  SiRedis,
 } from "react-icons/si";
 
 export default function Skills() {
@@ -51,16 +58,20 @@ export default function Skills() {
     { name: "Python", icon: <SiPython />, hover: "hover:text-yellow-400" },
     { name: "C", icon: <SiC />, hover: "hover:text-blue-400" },
     { name: ".NET", icon: <SiDotnet />, hover: "hover:text-purple-500" },
-    { name: "Next.js", icon: <SiNextdotjs />, hover: "hover:text-white" },
     { name: "TensorFlow", icon: <SiTensorflow />, hover: "hover:text-orange-500" },
     { name: "PyTorch", icon: <SiPytorch />, hover: "hover:text-orange-400" },
+    { name: "Linux", icon: <SiLinux />, hover: "hover:text-yellow-500" },
   ];
 
   const row2 = [
-    { name: "Linux", icon: <SiLinux />, hover: "hover:text-yellow-500" },
     { name: "React", icon: <SiReact />, hover: "hover:text-cyan-400" },
+    { name: "Next.js", icon: <SiNextdotjs />, hover: "hover:text-white" },
+    { name: "Vue.js", icon: <SiVuedotjs />, hover: "hover:text-green-500" },
+    { name: "HTML", icon: <SiHtml5 />, hover: "hover:text-orange-600" },
     { name: "Tailwind", icon: <SiTailwindcss />, hover: "hover:text-sky-400" },
     { name: "Node.js", icon: <SiNodedotjs />, hover: "hover:text-green-500" },
+    { name: "PostgreSQL", icon: <SiPostgresql />, hover: "hover:text-blue-500" },
+    { name: "Redis", icon: <SiRedis />, hover: "hover:text-red-500" },
     { name: "JavaScript", icon: <SiJavascript />, hover: "hover:text-yellow-400" },
     { name: "TypeScript", icon: <SiTypescript />, hover: "hover:text-blue-500" },
   ];
@@ -68,9 +79,10 @@ export default function Skills() {
   const row3 = [
     { name: "Git", icon: <SiGit />, hover: "hover:text-orange-500" },
     { name: "Docker", icon: <SiDocker />, hover: "hover:text-blue-400" },
-    { name: "System Design", icon: "⚙️", hover: "hover:text-indigo-400" },
+    { name: "MATLAB", icon: "📊", hover: "hover:text-orange-500" },
     { name: "CAN-BUS", icon: "🔌", hover: "hover:text-emerald-400" },
-    { name: "CAD", icon: "📐", hover: "hover:text-cyan-400" },
+    { name: "Altium Designer", icon: <SiAltiumdesigner />, hover: "hover:text-indigo-400" },
+    { name: "KiCad", icon: <SiKicad />, hover: "hover:text-green-600" },
   ];
 
   const MarqueeRow = ({
