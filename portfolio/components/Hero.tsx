@@ -85,25 +85,36 @@ export default function Hero() {
           </motion.div>
 
           {/* SCROLL INDICATOR (ALWAYS VISIBLE) */}
+          {/* SCROLL INDICATOR (Under Socials) */}
           <motion.div
+            initial={{ opacity: 0 }}
+            animate={{
+              opacity: [0.6, 1, 0.6],
+              textShadow: [
+                "0 0 4px rgba(255,255,255,0.4)",
+                "0 0 25px rgba(255,255,255,1)",
+                "0 0 4px rgba(255,255,255,0.4)",
+              ],
+            }}
+            transition={{
+              delay: 20,
+              duration: 10,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
             onClick={handleScrollClick}
             className="mt-16 flex items-center gap-4 cursor-pointer text-white"
           >
+            {/* Mouse Container */}
             <div className="relative flex items-center justify-center">
+              {/* Mouse Outline */}
               <Mouse size={40} strokeWidth={1.5} />
 
-              {/* SINGLE LINE — smooth up/down + breathing glow */}
+              {/* Animated Scroll Wheel */}
               <motion.div
-                animate={{
-                  y: [0, 8, 0],
-                  boxShadow: [
-                    "0 0 4px rgba(255,255,255,0.4)",
-                    "0 0 14px rgba(255,255,255,1)",
-                    "0 0 4px rgba(255,255,255,0.4)",
-                  ],
-                }}
+                animate={{ y: [0, 8, 0] }}
                 transition={{
-                  duration: 1.6,
+                  duration: 1.8,
                   repeat: Infinity,
                   ease: "easeInOut",
                 }}
