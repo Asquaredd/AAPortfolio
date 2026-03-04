@@ -13,7 +13,7 @@ const polaroids = [
     rotation: -8,
     x: -140,
     y: -80,
-    image: "/images/me_space.jpg"
+    image: "/images/me_space.jpg",
   },
   {
     title: "CNC & 3D Printing",
