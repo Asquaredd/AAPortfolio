@@ -2,7 +2,7 @@
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef, useState } from "react";
-import { Mail, Linkedin, FileText, Send, Github } from "lucide-react";
+import { Mail, Linkedin, Send, Github } from "lucide-react";
 
 export default function Contact() {
   const ref = useRef<HTMLElement | null>(null);
@@ -96,7 +96,7 @@ export default function Contact() {
           transition={{ duration: 1, delay: 0.6 }}
           viewport={{ once: true }}
         >
-          <form onSubmit={handleSubmit} className="space-y-8"> {/* Changed from space-y-5 to space-y-8 */}
+          <form onSubmit={handleSubmit} className="space-y-8">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               <div>
                 <input
@@ -123,7 +123,7 @@ export default function Contact() {
             </div>
             
             {/* Added extra padding specifically for the message field */}
-            <div className="pt-4"> {/* Added padding-top to create more space */}
+            <div className="pt-4">
               <textarea
                 name="message"
                 value={formData.message}
@@ -147,12 +147,12 @@ export default function Contact() {
           </form>
         </motion.div>
 
-        {/* SOCIAL LINKS */}
+        {/* CONTACT CARDS - UPDATED TO MATCH SOCIAL LINKS STYLE */}
         <motion.div
-          className="flex justify-center gap-6 mb-12"
-          initial={{ opacity: 0, y: 30 }}
+          className="flex justify-center gap-8 max-w-4xl mx-auto mb-16"
+          initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 1.1 }}
+          transition={{ duration: 1, delay: 0.9 }}
           viewport={{ once: true }}
         >
           {socials.map((social, index) => (
@@ -161,56 +161,23 @@ export default function Contact() {
               href={social.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="p-3 bg-white/10 border border-white/20 rounded-lg hover:bg-white/20 transition-all duration-300 backdrop-blur-sm"
-              whileHover={{ scale: 1.1, y: -2 }}
+              className="p-6 bg-white/5 border border-white/10 rounded-2xl hover:bg-white/10 transition-all duration-300 backdrop-blur-sm flex flex-col items-center gap-3 group"
+              whileHover={{ scale: 1.05, y: -5 }}
               whileTap={{ scale: 0.95 }}
             >
-              {social.icon}
+              <div className="p-3 bg-white/10 rounded-lg group-hover:bg-white/20 transition-colors">
+                {social.icon}
+              </div>
+              <span className="text-sm uppercase tracking-[0.3em] text-gray-400">
+                {social.href.includes('github') ? 'GitHub' : 
+                 social.href.includes('linkedin') ? 'LinkedIn' : 'Email'}
+              </span>
+              <span className="text-base font-light text-white">
+                {social.href.includes('github') ? 'Asquaredd' : 
+                 social.href.includes('linkedin') ? 'Aman Adhikari' : 'amanadhikarisso@gmail.com'}
+              </span>
             </motion.a>
           ))}
-        </motion.div>
-
-        {/* CONTACT CARDS */}
-        <motion.div
-          className="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-4xl mx-auto mb-16"
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.9 }}
-          viewport={{ once: true }}
-        >
-          {/* EMAIL */}
-          <a
-            href="mailto:amanadhikarisso@gmail.com?subject=Portfolio%20Inquiry"
-            className="group relative block p-6 rounded-2xl overflow-hidden bg-white/5 border border-white/10 text-white no-underline transition-all duration-500 hover:-translate-y-1 shadow-sm hover:shadow-md hover:bg-white/10 backdrop-blur-sm"
-          >
-            <Mail className="text-white mb-3" size={24} />
-            <div className="text-sm uppercase tracking-[0.35em] text-gray-400 mb-2">Email</div>
-            <div className="text-base font-light text-white tracking-wide">amanadhikarisso@gmail.com</div>
-          </a>
-
-          {/* LINKEDIN */}
-          <a
-            href="https://www.linkedin.com/in/aman-adhikari/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group relative block p-6 rounded-2xl overflow-hidden bg-white/5 border border-white/10 text-white no-underline outline-none transition-all duration-500 hover:-translate-y-1 shadow-sm hover:shadow-md hover:bg-white/10 backdrop-blur-sm"
-          >
-            <Linkedin className="text-white mb-3" size={24} />
-            <div className="text-sm uppercase tracking-[0.35em] text-gray-400 mb-2">LinkedIn</div>
-            <div className="text-base font-light text-white tracking-wide">Aman Adhikari</div>
-          </a>
-
-          {/* GITHUB */}
-          <a
-            href="https://github.com/Asquaredd"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group relative block p-6 rounded-2xl overflow-hidden bg-white/5 border border-white/10 text-white no-underline outline-none transition-all duration-500 hover:-translate-y-1 shadow-sm hover:shadow-md hover:bg-white/10 backdrop-blur-sm"
-          >
-            <Github className="text-white mb-3" size={24} />
-            <div className="text-sm uppercase tracking-[0.3em] text-gray-400 mb-2">GitHub</div>
-            <div className="text-base font-light text-white tracking-wide">Asquaredd</div>
-          </a>
         </motion.div>
 
         {/* DIVIDER */}
