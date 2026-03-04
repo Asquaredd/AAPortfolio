@@ -97,8 +97,8 @@ export default function Hero() {
               ],
             }}
             transition={{
-              delay: 20,
-              duration: 10,
+              delay: 100,
+              duration: 100,
               repeat: Infinity,
               ease: "easeInOut",
             }}
