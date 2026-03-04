@@ -14,9 +14,9 @@ const jetBrainsMono = JetBrains_Mono({
 
 export default function Hero() {
   const socials = [
-    { icon: <Github size={28} />, href: "https://github.com/yourusername" },
-    { icon: <Linkedin size={28} />, href: "https://linkedin.com/in/yourusername" },
-    { icon: <Mail size={28} />, href: "mailto:your@email.com" },
+    { icon: <Github size={28} />, href: "https://github.com/Asquaredd" },
+    { icon: <Linkedin size={28} />, href: "https://www.linkedin.com/in/aman-adhikari/" },
+    { icon: <Mail size={28} />, href: "mailto:amanadhikarisso@gmail.com" },
   ];
 
   return (
