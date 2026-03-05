@@ -5,11 +5,13 @@ import {
   useScroll,
   useTransform,
   AnimatePresence,
+  Variants,
 } from "framer-motion";
 import { useRef, useState } from "react";
 import { MousePointer2, ChevronLeft, ChevronRight } from "lucide-react";
 
-const breatheVariant = {
+// The corrected variant structure for TypeScript
+const breatheVariant: Variants = {
   animate: {
     scale: [1, 1.1, 1],
     opacity: [0.7, 1, 0.7],
@@ -21,9 +23,18 @@ const breatheVariant = {
   },
 };
 
+interface Project {
+  title: string;
+  caption: string;
+  images: string[];
+  description: string;
+  longDescription: string;
+  tech: string[];
+}
+
 export default function Projects() {
   const ref = useRef<HTMLDivElement | null>(null);
-  const [activeProject, setActiveProject] = useState<any | null>(null);
+  const [activeProject, setActiveProject] = useState<Project | null>(null);
   const [imageIndex, setImageIndex] = useState(0);
 
   const { scrollYProgress } = useScroll({
@@ -33,7 +44,7 @@ export default function Projects() {
 
   const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
 
-  const projects = [
+  const projects: Project[] = [
     {
       title: "Neurosymbolic Object Detection for Laundry Care Symbols",
       caption: "Real-time computer vision pipeline",
@@ -129,7 +140,6 @@ export default function Projects() {
                 }}
                 className="group relative cursor-pointer flex flex-col h-full"
               >
-                {/* Indicator */}
                 <div className="absolute -top-4 -right-2 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
                   <div className="bg-white text-black text-[10px] font-bold px-2 py-1 rounded-full flex items-center gap-1 shadow-xl">
                     <MousePointer2 size={10} className="animate-bounce" />
@@ -138,19 +148,16 @@ export default function Projects() {
                 </div>
 
                 <div className="bg-neutral-900/50 border border-white/10 rounded-2xl overflow-hidden hover:border-white/30 transition-all duration-300 flex flex-col h-full shadow-2xl">
-                  {/* Image Container */}
                   <div className="relative aspect-video overflow-hidden bg-neutral-800">
                     <motion.img
                       src={project.images[0]}
                       alt={project.title}
                       className="w-full h-full object-cover"
                       whileHover={{ scale: 1.05 }}
-                      transition={{ duration: 0.4 }}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                   </div>
 
-                  {/* Card Body */}
                   <div className="p-6 flex flex-col flex-grow">
                     <h3 className="text-white text-xl font-bold mb-2 group-hover:text-blue-400 transition-colors">
                       {project.title}
@@ -159,21 +166,12 @@ export default function Projects() {
                       {project.description}
                     </p>
                     
-                    {/* Consistent Tech Tags - FRONT CARD */}
                     <div className="mt-auto flex flex-wrap gap-2 pt-4 border-t border-white/10">
                       {project.tech.slice(0, 6).map((t) => (
-                        <span 
-                          key={t} 
-                          className="text-[9px] font-semibold uppercase tracking-wider text-white/70 bg-white/5 border border-white/10 px-2 py-1 rounded-md"
-                        >
+                        <span key={t} className="text-[9px] font-semibold uppercase tracking-wider text-white/70 bg-white/5 border border-white/10 px-2 py-1 rounded-md">
                           {t}
                         </span>
                       ))}
-                      {project.tech.length > 6 && (
-                        <span className="text-[9px] font-bold text-blue-400/80 px-1 py-1">
-                          +{project.tech.length - 6}
-                        </span>
-                      )}
                     </div>
                   </div>
                 </div>
@@ -183,7 +181,6 @@ export default function Projects() {
         </div>
       </motion.section>
 
-      {/* MODAL */}
       <AnimatePresence>
         {activeProject && (
           <motion.div
@@ -209,7 +206,6 @@ export default function Projects() {
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.95 }}
-                    transition={{ duration: 0.3 }}
                   />
                 </AnimatePresence>
 
@@ -218,9 +214,8 @@ export default function Projects() {
                     <motion.button 
                       variants={breatheVariant}
                       animate="animate"
-                      whileHover={{ scale: 1.2, textShadow: "0px 0px 12px rgb(255,255,255)" }}
                       onClick={prevImage} 
-                      className="absolute left-6 text-white z-30 drop-shadow-lg"
+                      className="absolute left-6 text-white z-30"
                     >
                       <ChevronLeft size={64} strokeWidth={2.5} />
                     </motion.button>
@@ -228,15 +223,15 @@ export default function Projects() {
                     <motion.button 
                       variants={breatheVariant}
                       animate="animate"
-                      whileHover={{ scale: 1.2, textShadow: "0px 0px 12px rgb(255,255,255)" }}
                       onClick={nextImage} 
-                      className="absolute right-6 text-white z-30 drop-shadow-lg"
+                      className="absolute right-6 text-white z-30"
                     >
                       <ChevronRight size={64} strokeWidth={2.5} />
                     </motion.button>
 
+                    {/* RESTORED DOT INDICATORS */}
                     <div className="absolute bottom-8 flex gap-4 z-30">
-                      {activeProject.images.map((_: any, i: number) => (
+                      {activeProject.images.map((_, i) => (
                         <button
                           key={i}
                           onClick={() => setImageIndex(i)}
@@ -252,30 +247,24 @@ export default function Projects() {
                 )}
               </div>
 
-              {/* Modal Content */}
               <div className="p-8 md:p-12 flex flex-col overflow-y-auto">
                 <div className="mb-8">
                   <h3 className="text-4xl font-bold text-white mb-2">{activeProject.title}</h3>
                   <p className="text-blue-400 font-bold uppercase tracking-[0.25em] text-[10px]">{activeProject.caption}</p>
                 </div>
-                
                 <p className="text-gray-300 text-lg leading-relaxed mb-8">{activeProject.longDescription}</p>
-
-                {/* Tech Tags - MODAL */}
+                
                 <div className="flex flex-wrap gap-2 mb-10">
-                    {activeProject.tech.map((t: string) => (
-                        <span 
-                          key={t} 
-                          className="px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-xs font-bold tracking-wide text-white/90"
-                        >
-                            {t}
-                        </span>
-                    ))}
+                  {activeProject.tech.map((t) => (
+                    <span key={t} className="px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-xs font-bold tracking-wide text-white/90">
+                      {t}
+                    </span>
+                  ))}
                 </div>
 
                 <button
                   onClick={() => setActiveProject(null)}
-                  className="mt-auto w-full py-4 bg-white text-black font-black uppercase tracking-widest rounded-xl hover:bg-neutral-200 transition-all active:scale-[0.98] shadow-lg shadow-white/5"
+                  className="mt-auto w-full py-4 bg-white text-black font-black uppercase tracking-widest rounded-xl hover:bg-neutral-200 transition-all"
                 >
                   Close Project
                 </button>
