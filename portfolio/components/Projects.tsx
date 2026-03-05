@@ -72,7 +72,7 @@ export default function Projects() {
     {
       title: "Dobsodian 'Go-To' Telescope",
       caption: "UAV-mounted telescope platform",
-      images: ["/images/telescope.gif", "/images/telescopemountdimensions.png","/images/Starfinder.png"],
+      images: ["/images/Telescope.gif", "/images/telescopemountdimensions.png","/images/starfinder.png"],
       description: "Custom telescope platform featuring 3D-printed gearboxes and alt-az gimbals.",
       longDescription: "Drone-mounted telescope system including gear reductions and structural optimization in Fusion 360.",
       tech: ["Raspberry-Pi5","Python", "C", "Hall Effect Encoders","Gearboxes","Optics", "Skyfield", "Batteries"],
