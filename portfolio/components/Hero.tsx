@@ -14,7 +14,6 @@ const jetBrainsMono = JetBrains_Mono({
 });
 
 export default function Hero() {
-  // Guard for Static Exports to ensure animations trigger on the client
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -44,21 +43,18 @@ export default function Hero() {
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90vw] h-[90vw] bg-white/[0.03] rounded-full blur-[120px]" />
         </div>
 
-        {/* Only render the motion parts once mounted. 
-            This prevents Vercel's static export from skipping the initial 0 opacity state.
-        */}
         {mounted && (
           <>
-            {/* LEFT CONTENT - Fades in ONLY after ASCII has moved */}
+            {/* LEFT CONTENT - Cinematic Entrance */}
             <motion.div
-              initial={{ opacity: 0, x: "-10vw" }}
-              animate={{ opacity: 1, x: "5vw" }}
+              initial={{ opacity: 0, x: -30 }}
+              animate={{ opacity: 1, x: 0 }}
               transition={{ 
-                delay: 2.8, // Wait for ASCII to show (1s) + move (2s)
-                duration: 1.2, 
-                ease: "easeOut" 
+                delay: 3.5, // Significant delay so ASCII move is the focal point
+                duration: 1.5, 
+                ease: [0.16, 1, 0.3, 1] // Custom "Quartic" ease-out
               }}
-              className="absolute left-[5vw] top-1/2 -translate-y-1/2 z-10 text-left"
+              className="absolute left-[8vw] top-1/2 -translate-y-1/2 z-10 text-left"
             >
               <h1 className={`${jetBrainsMono.className} font-bold text-white tracking-tight [font-size:clamp(2.5rem,6vw,4rem)] leading-tight`}>
                 Aman Adhikari
@@ -68,10 +64,11 @@ export default function Hero() {
                 Software Engineer · Embedded Systems · Machine Learning
               </p>
 
+              {/* Socials Staggered slightly */}
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 3.2, duration: 1 }}
+                transition={{ delay: 4.2, duration: 1 }}
                 className="flex gap-8 mt-12 items-center"
               >
                 {socials.map((social, i) => (
@@ -92,50 +89,49 @@ export default function Hero() {
 
               <motion.div
                 initial={{ opacity: 0 }}
-                animate={{
-                  opacity: [0.6, 1, 0.6],
-                  textShadow: ["0 0 4px rgba(255,255,255,0.4)", "0 0 25px rgba(255,255,255,1)", "0 0 4px rgba(255,255,255,0.4)"],
-                }}
-                transition={{
-                  delay: 4, 
-                  duration: 3,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 5, duration: 2 }}
                 onClick={handleScrollClick}
                 className="mt-16 flex items-center gap-4 cursor-pointer text-white"
               >
                 <div className="relative flex items-center justify-center">
-                  <Mouse size={40} strokeWidth={1.5} />
+                  <Mouse size={36} strokeWidth={1.5} />
                   <motion.div
-                    animate={{ y: [0, 8, 0] }}
-                    transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
-                    className="absolute w-[2px] h-[6px] bg-white rounded-full"
+                    animate={{ y: [0, 6, 0] }}
+                    transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                    className="absolute w-[2px] h-[5px] bg-white rounded-full"
                     style={{ top: "8px" }}
                   />
                 </div>
-                <span className={`${jetBrainsMono.className} text-sm tracking-wide`}>Scroll Down</span>
+                <span className={`${jetBrainsMono.className} text-sm tracking-wide opacity-50`}>Scroll Down</span>
               </motion.div>
             </motion.div>
 
-            {/* ASCII LOGO - Starts Center, then moves */}
+            {/* ASCII LOGO - Cinematic Stall & Slide */}
             <motion.div
               initial={{ 
                 opacity: 0, 
                 x: "-50%", 
                 y: "-50%", 
                 left: "50%", 
-                top: "50%" 
+                top: "50%",
+                scale: 0.95
               }}
               animate={{ 
                 opacity: 1, 
-                left: "70%" // Responsive move to the right
+                left: "72%",
+                scale: 1
               }}
               transition={{ 
-                opacity: { duration: 1 }, 
-                left: { delay: 1.2, duration: 1.8, ease: "easeInOut" } 
+                opacity: { duration: 1.5, ease: "easeIn" }, 
+                left: { 
+                  delay: 1.8, // The "Stall": Logo stays center for 0.8s after fading in
+                  duration: 2, 
+                  ease: [0.65, 0, 0.35, 1] // Dramatic "Cubic" slide
+                },
+                scale: { duration: 2 }
               }}
-              className="absolute z-10 hidden lg:block whitespace-pre"
+              className="absolute z-10 hidden lg:block whitespace-pre select-none"
             >
               <AsciiLogo />
             </motion.div>
