@@ -96,14 +96,14 @@ export default function Skills() {
     const containerRef = useRef<HTMLDivElement>(null);
     const [width, setWidth] = useState(0);
 
-    const SPEED = 40; // px per second
+    const SPEED = 40;
 
     useEffect(() => {
       if (!containerRef.current) return;
 
       const resizeObserver = new ResizeObserver(() => {
         const fullWidth = containerRef.current!.scrollWidth;
-        setWidth(fullWidth / 2); // because we duplicate items
+        setWidth(fullWidth / 2);
       });
 
       resizeObserver.observe(containerRef.current);
@@ -116,21 +116,24 @@ export default function Skills() {
       const move = (SPEED * delta) / 1000;
       let next = x.get() + (reverse ? move : -move);
 
-      if (!reverse && next <= -width) {
-        next += width;
-      }
-
-      if (reverse && next >= 0) {
-        next -= width;
-      }
+      if (!reverse && next <= -width) next += width;
+      if (reverse && next >= 0) next -= width;
 
       x.set(next);
     });
 
     return (
       <div className="relative overflow-hidden py-8">
-        {/* Edge fade */}
-        <div className="absolute inset-0 pointer-events-none z-10 bg-gradient-to-r from-black via-transparent to-black" />
+        {/* Seamless edge fade using mask (NO black edges) */}
+        <div
+          className="absolute inset-0 pointer-events-none z-10"
+          style={{
+            maskImage:
+              "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
+            WebkitMaskImage:
+              "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
+          }}
+        />
 
         <motion.div
           ref={containerRef}
@@ -159,12 +162,12 @@ export default function Skills() {
       ref={ref}
       id="skills"
       style={{ opacity }}
-      className="min-h-screen px-6 sm:px-12 lg:px-20 py-24 bg-black relative overflow-hidden"
+      className="min-h-screen px-6 sm:px-12 lg:px-20 py-24 relative overflow-hidden"
     >
-      {/* Background blur gradients */}
+      {/* Softer background gradients */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/3 -right-1/4 w-[800px] h-[800px] bg-purple-600/10 rounded-full blur-[120px]" />
-        <div className="absolute -bottom-1/4 -left-1/4 w-[600px] h-[600px] bg-cyan-600/10 rounded-full blur-[120px]" />
+        <div className="absolute top-1/3 -right-1/4 w-[800px] h-[800px] bg-purple-600/5 rounded-full blur-[120px]" />
+        <div className="absolute -bottom-1/4 -left-1/4 w-[600px] h-[600px] bg-cyan-600/5 rounded-full blur-[120px]" />
       </div>
 
       <motion.div style={{ scale }} className="max-w-[1600px] mx-auto z-10">
