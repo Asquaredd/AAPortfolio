@@ -48,7 +48,7 @@ export default function Projects() {
     {
       title: "Neuro-symbolic Understanding of Laundry Care Labels",
       caption: "Real-time computer vision pipeline with Schema-Based Reasoning",
-      images: ["/images/results.png", "/images/endtoEnd.png", "/images/laundryclasses.png"],
+      images: ["/images/results.png", "/images/EndtoEnd.png", "/images/laundryclasses.png"],
       description: "Computer Vision model for detecting, classifying, and tracking laundry care tags.",
       longDescription: "This computer vision project implements an end-to-end object detection pipeline optimized for real-time inference, study compares YOLO-based and Vision Transformer architectures.",
       tech: ["Python", "PyTorch", "YOLOv11","YOLOv12", "ViT","Vision-Language", "LaTex", "Jupyter"],
@@ -80,7 +80,7 @@ export default function Projects() {
     {
       title: "Deep-Q-Networks: Atari",
       caption: "Deep reinforcement learning system",
-      images: ["/images/dqnResults.png"],
+      images: ["/images/lander.gif","/images/dqnResults.png"],
       description:"Artifical Neural Networks trained to play Atari games using reinforcement learning Deep Q Networks",
       longDescription:"Full Deep Q‑Network pipeline featuring experience replay, target‑network synchronization, epsilon‑greedy exploration, and Gymnasium integration. Trained on a suite of Atari 2600 games using raw RGB frames. Includes training visualisations, score plots, and checkpoint saving/loading.",
       tech: ["Python","PyTorch","Open‑AI Gymnasium","Deep Q‑Learning","Reinforcement Learning","Experience Replay","Target/Policy Network","Matplotlib"]
