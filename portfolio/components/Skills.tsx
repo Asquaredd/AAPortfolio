@@ -162,7 +162,7 @@ export default function Skills() {
       ref={ref}
       id="skills"
       style={{ opacity }}
-      className="min-h-screen px-6 sm:px-12 lg:px-20 py-24 relative overflow-hidden"
+      className="relative min-h-screen bg-black overflow-hidden px-6 sm:px-12 lg:px-20 py-24"
     >
       {/* Softer background gradients */}
       <div className="absolute inset-0 pointer-events-none">
@@ -170,7 +170,7 @@ export default function Skills() {
         <div className="absolute -bottom-1/4 -left-1/4 w-[600px] h-[600px] bg-cyan-600/5 rounded-full blur-[120px]" />
       </div>
 
-      <motion.div style={{ scale }} className="max-w-[1600px] mx-auto z-10">
+      <motion.div style={{ scale }} className="relative z-10 max-w-[1600px] mx-auto">
         <div className="text-center mb-24">
           <h2 className="text-5xl lg:text-6xl font-bold text-white mb-4">
             My Skills

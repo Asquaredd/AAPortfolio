@@ -48,17 +48,17 @@ export default function About() {
       ref={ref}
       id="about"
       style={{ opacity: sectionOpacity, scale: sectionScale }}
-      className="h-screen flex items-center justify-center px-8 md:px-20 bg-black relative overflow-hidden"
+      className="relative min-h-screen bg-black overflow-hidden flex items-center justify-center px-8 md:px-20 py-24"
     >
       {/* Background glow */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-white/5 rounded-full blur-[150px]" />
       </div>
 
-      <div className="max-w-6xl w-full z-10 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+      <div className="relative z-10 max-w-6xl w-full grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
 
         {/* LEFT */}
-        <div className="space-y-8 text-center lg:text-left">
+        <div className="space-y-8 text-center">
           <motion.h2
             className="text-5xl md:text-6xl font-bold text-white"
             initial={{ opacity: 0, y: 30 }}
@@ -74,7 +74,7 @@ export default function About() {
           </motion.div>
 
           {/* 🔥 CARD STACK (FIXED) */}
-          <motion.div className="relative w-[320px] h-[200px] mx-auto lg:mx-0 mt-8">
+          <motion.div className="relative w-[320px] h-[200px] mx-auto mt-8">
             {cards.map((card, i) => (
               <motion.div
                 key={i}

@@ -18,7 +18,11 @@ const generateRandomValues = (totalChars: number) => {
   return values;
 };
 
-export default function AsciiLogo() {
+interface AsciiLogoProps {
+  className?: string;
+}
+
+export default function AsciiLogo({ className = "" }: AsciiLogoProps) {
   const [frame, setFrame] = useState(0);
   const [isInitialAnimationDone, setIsInitialAnimationDone] = useState(false);
   const randomValuesRef = useRef<{ y: number; x: number; rotate: number; delay: number }[]>([]);
@@ -32,7 +36,7 @@ export default function AsciiLogo() {
   useEffect(() => {
     const morphTimer = setTimeout(() => {
       setIsInitialAnimationDone(true);
-    }, 4000);
+    }, 5200);
 
     return () => clearTimeout(morphTimer);
   }, []);
@@ -54,16 +58,15 @@ export default function AsciiLogo() {
     <AnimatePresence mode="wait">
       <motion.div
         key={`frame-${frame}`}
-        className="inline-block select-none relative"
+        className={`inline-block select-none relative ${className}`}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 0.5 }}
         style={{
           fontFamily: "'Courier New', Courier, monospace",
-          fontSize: "20px",
-          lineHeight: "20px",
-          transform: "scale(1)",
+          fontSize: "1em",
+          lineHeight: 1,
           transformOrigin: "center",
         }}
       >
@@ -103,7 +106,7 @@ export default function AsciiLogo() {
                     filter: "blur(8px)",
                   }}
                   transition={{
-                    duration: isInitialAnimationDone ? 0.4 : 0.6,
+                    duration: isInitialAnimationDone ? 0.55 : 0.8,
                     delay: randomValue.delay,
                     ease: "easeOut",
                   }}

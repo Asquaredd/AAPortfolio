@@ -27,49 +27,56 @@ export default function Hero() {
   ];
 
   const handleScrollClick = () => {
-    window.scrollTo({
-      top: window.innerHeight,
-      behavior: "smooth",
-    });
+    document.getElementById("about")?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
     <>
       <Navbar />
 
-      <motion.section className="h-screen w-screen bg-black flex items-center justify-center relative overflow-hidden px-4">
+      <motion.section className="relative min-h-screen w-full bg-black overflow-hidden px-4 pt-28 pb-16 sm:px-6 sm:pt-32 sm:pb-20">
         {/* Background Glow */}
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90vw] h-[90vw] bg-white/[0.03] rounded-full blur-[120px]" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[85vw] w-[85vw] rounded-full bg-white/[0.03] blur-[120px] sm:h-[70vw] sm:w-[70vw] lg:h-[55vw] lg:w-[55vw]" />
         </div>
 
         {mounted && (
-          <>
-            {/* LEFT CONTENT - Cinematic Entrance */}
+          <div className="relative z-10 mx-auto flex min-h-[calc(100vh-11rem)] w-full max-w-5xl flex-col items-center justify-center gap-10 text-center sm:gap-12">
             <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ 
-                delay: 3.5, // Significant delay so ASCII move is the focal point
-                duration: 1.5, 
-                ease: [0.16, 1, 0.3, 1] // Custom "Quartic" ease-out
+              initial={{ opacity: 0, scale: 0.98 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{
+                duration: 2.4,
+                ease: "easeInOut",
               }}
-              className="absolute left-[8vw] top-1/2 -translate-y-1/2 z-10 text-left"
+              className="flex w-full justify-center"
+            >
+              <AsciiLogo className="origin-center text-[0.36rem] sm:text-[0.5rem] md:text-[0.64rem] lg:text-[0.78rem] xl:text-[0.95rem] 2xl:text-[1.1rem]" />
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 28 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                delay: 2.15,
+                duration: 1.35,
+                ease: [0.16, 1, 0.3, 1],
+              }}
+              className="flex max-w-3xl flex-col items-center text-center"
             >
               <h1 className={`${jetBrainsMono.className} font-bold text-white tracking-tight [font-size:clamp(2.5rem,6vw,4rem)] leading-tight`}>
                 Aman Adhikari
               </h1>
 
-              <p className={`${jetBrainsMono.className} mt-6 text-gray-400 opacity-90 whitespace-nowrap [font-size:clamp(1rem,1.8vw,1.2rem)] leading-relaxed max-w-xl`}>
+              <p className={`${jetBrainsMono.className} mt-5 max-w-full whitespace-nowrap text-gray-400 opacity-90 tracking-[-0.05em] [font-size:clamp(0.58rem,2.4vw,1.2rem)] leading-none`}>
                 Software Engineer · Embedded Systems · Machine Learning
               </p>
 
-              {/* Socials Staggered slightly */}
               <motion.div
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 4.2, duration: 1 }}
-                className="flex gap-8 mt-12 items-center"
+                transition={{ delay: 2.55, duration: 1 }}
+                className="mt-10 flex flex-wrap items-center justify-center gap-6 sm:gap-8"
               >
                 {socials.map((social, i) => (
                   <motion.a
@@ -90,9 +97,9 @@ export default function Hero() {
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 5, duration: 2 }}
+                transition={{ delay: 3.35, duration: 1.2 }}
                 onClick={handleScrollClick}
-                className="mt-16 flex items-center gap-4 cursor-pointer text-white"
+                className="mt-12 flex items-center gap-4 text-white cursor-pointer"
               >
                 <div className="relative flex items-center justify-center">
                   <Mouse size={36} strokeWidth={1.5} />
@@ -106,36 +113,7 @@ export default function Hero() {
                 <span className={`${jetBrainsMono.className} text-sm tracking-wide opacity-50`}>Scroll Down</span>
               </motion.div>
             </motion.div>
-
-            {/* ASCII LOGO - Cinematic Stall & Slide */}
-            <motion.div
-              initial={{ 
-                opacity: 0, 
-                x: "-50%", 
-                y: "-50%", 
-                left: "50%", 
-                top: "50%",
-                scale: 0.95
-              }}
-              animate={{ 
-                opacity: 1, 
-                left: "72%",
-                scale: 1
-              }}
-              transition={{ 
-                opacity: { duration: 1.5, ease: "easeIn" }, 
-                left: { 
-                  delay: 1.8, // The "Stall": Logo stays center for 0.8s after fading in
-                  duration: 2, 
-                  ease: [0.65, 0, 0.35, 1] // Dramatic "Cubic" slide
-                },
-                scale: { duration: 2 }
-              }}
-              className="absolute z-10 hidden lg:block whitespace-pre select-none"
-            >
-              <AsciiLogo />
-            </motion.div>
-          </>
+          </div>
         )}
       </motion.section>
     </>

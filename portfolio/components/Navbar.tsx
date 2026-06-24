@@ -30,7 +30,7 @@ export default function Navbar() {
     <motion.nav
       initial={{ opacity: 0, y: -12 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 3.5, duration: 0.8, ease: "easeOut" }}
+      transition={{ delay: 3.8, duration: 0.9, ease: "easeOut" }}
       className="fixed top-4 right-4 z-50"
     >
       <div className="flex items-center gap-3 sm:gap-6 rounded-full bg-black/40 backdrop-blur-md px-3 sm:px-5 py-2">

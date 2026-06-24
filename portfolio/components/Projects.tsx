@@ -78,10 +78,10 @@ export default function Projects() {
       tech: ["VLA", "IsaacSim", "LBM", "ROS2", "Kinematics", "Real-to-Sim/Sim-to-real"],
     },
     {
-      title: "Deep-Q-Networks: Atari",
+      title: "Lunar Lander DQN",
       caption: "Deep reinforcement learning system",
       images: ["/images/lander.gif","/images/dqnResults.png"],
-      description:"Artifical Neural Networks trained to play Atari games using reinforcement learning Deep Q Networks",
+      description:"Deep-Q-Network driven Lunar Lander trained via reinforcement learning.",
       longDescription:"Full Deep Q‑Network pipeline featuring experience replay, target‑network synchronization, epsilon‑greedy exploration, and Gymnasium integration. Trained on a suite of Atari 2600 games using raw RGB frames. Includes training visualisations, score plots, and checkpoint saving/loading.",
       tech: ["Python","PyTorch","Open‑AI Gymnasium","Deep Q‑Learning","Reinforcement Learning","Experience Replay","Target/Policy Network","Matplotlib"]
     },
@@ -89,6 +89,14 @@ export default function Projects() {
       title: "CAN-Bus Tester",
       caption: "Automotive diagnostics tool",
       images: ["/images/typeCTesterConnected.jpg", "/images/typeCBoardside.jpg"],
+      description: "CAN-Bus diagnostic and testing tool for automotive electronic modules.",
+      longDescription: "Hardware/software system for sniffing and validating CAN-Bus traffic for ECU diagnostics.",
+      tech: ["CAN-Bus","Microcontrollers", "Embedded", "ECUs", "C++", "Altium"],
+    },
+    {
+      title: "Fuel Pump Bypass PCB",
+      caption: "Automotive Repair Modification",
+      images: ["/images/fpbypass.png", "/images/FuelPumpBypass.png"],
       description: "CAN-Bus diagnostic and testing tool for automotive electronic modules.",
       longDescription: "Hardware/software system for sniffing and validating CAN-Bus traffic for ECU diagnostics.",
       tech: ["CAN-Bus","Microcontrollers", "Embedded", "ECUs", "C++", "Altium"],
@@ -119,13 +127,13 @@ export default function Projects() {
         ref={ref}
         id="projects"
         style={{ opacity }}
-        className="min-h-screen px-6 md:px-20 bg-black relative py-20 overflow-hidden"
+        className="relative min-h-screen bg-black overflow-hidden px-6 md:px-20 py-24"
       >
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-1/3 left-1/4 w-[600px] h-[600px] bg-white/5 rounded-full blur-[160px]" />
         </div>
 
-        <div className="max-w-7xl mx-auto relative z-10">
+        <div className="relative z-10 max-w-7xl mx-auto">
           <motion.h2 
             className="text-5xl font-bold text-white mb-16 text-center"
             initial={{ opacity: 0, y: 20 }}
