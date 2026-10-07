@@ -2,12 +2,10 @@
 
 import {
   motion,
-  useScroll,
-  useTransform,
   AnimatePresence,
   Variants,
 } from "framer-motion";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { MousePointer2, ChevronLeft, ChevronRight } from "lucide-react";
 
 // The corrected variant structure for TypeScript
@@ -33,16 +31,8 @@ interface Project {
 }
 
 export default function Projects() {
-  const ref = useRef<HTMLDivElement | null>(null);
   const [activeProject, setActiveProject] = useState<Project | null>(null);
   const [imageIndex, setImageIndex] = useState(0);
-
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"],
-  });
-
-  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
 
   const projects: Project[] = [
     {
@@ -124,25 +114,19 @@ export default function Projects() {
   return (
     <>
       <motion.section
-        ref={ref}
         id="projects"
-        style={{ opacity }}
-        className="relative min-h-screen bg-black overflow-hidden px-6 md:px-20 py-24"
+        className="relative min-h-screen overflow-hidden px-6 md:px-20 py-24"
       >
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-1/3 left-1/4 w-[600px] h-[600px] bg-white/5 rounded-full blur-[160px]" />
-        </div>
-
-        <div className="relative z-10 max-w-7xl mx-auto">
+        <div className="relative z-10 max-w-6xl mx-auto">
           <motion.h2 
-            className="text-5xl font-bold text-white mb-16 text-center"
+            className="text-5xl font-bold text-white mb-12 text-center"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
           >
             Projects
           </motion.h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {projects.map((project, index) => (
               <motion.div
                 key={project.title}
@@ -163,31 +147,24 @@ export default function Projects() {
                   </div>
                 </div>
 
-                <div className="bg-neutral-900/50 border border-white/10 rounded-2xl overflow-hidden hover:border-white/30 transition-all duration-300 flex flex-col h-full shadow-2xl">
-                  <div className="relative aspect-video overflow-hidden bg-neutral-800">
+                <div className="bg-neutral-900/50 border border-white/10 rounded-2xl overflow-hidden transition-all duration-300 flex flex-col h-full shadow-2xl hover:border-white/40 hover:shadow-[0_0_24px_rgba(255,255,255,0.14)]">
+                  <div className="relative aspect-square overflow-hidden bg-neutral-950">
                     <motion.img
                       src={project.images[0]}
                       alt={project.title}
-                      className="w-full h-full object-cover"
-                      whileHover={{ scale: 1.05 }}
+                      className="absolute inset-0 h-full w-full object-contain p-2 transition duration-500 group-hover:brightness-110"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                  </div>
-
-                  <div className="p-6 flex flex-col flex-grow">
-                    <h3 className="text-white text-xl font-bold mb-2 group-hover:text-blue-400 transition-colors">
-                      {project.title}
-                    </h3>
-                    <p className="text-gray-400 text-sm mb-6 line-clamp-2 leading-relaxed">
-                      {project.description}
-                    </p>
-                    
-                    <div className="mt-auto flex flex-wrap gap-2 pt-4 border-t border-white/10">
-                      {project.tech.slice(0, 6).map((t) => (
-                        <span key={t} className="text-[9px] font-semibold uppercase tracking-wider text-white/70 bg-white/5 border border-white/10 px-2 py-1 rounded-md">
-                          {t}
-                        </span>
-                      ))}
+                    <div className="absolute inset-x-0 bottom-0 flex flex-col gap-2.5 rounded-b-2xl border border-white/45 bg-black/60 p-4 text-white shadow-[inset_0_0_16px_rgba(255,255,255,0.08),0_0_14px_rgba(255,255,255,0.38)] backdrop-blur-xl transition-all duration-300 group-hover:border-white/80 group-hover:shadow-[inset_0_0_20px_rgba(255,255,255,0.14),0_0_20px_rgba(255,255,255,0.65)] sm:p-5">
+                      <h3 className="text-left text-sm font-bold leading-snug text-white drop-shadow-[0_1px_8px_rgba(255,255,255,0.25)] sm:text-base">
+                        {project.title}
+                      </h3>
+                      <div className="flex flex-wrap gap-1.5">
+                        {project.tech.slice(0, 6).map((t) => (
+                          <span key={t} className="rounded-full border border-white/15 bg-white/10 px-2 py-1 text-[8px] font-semibold uppercase tracking-wide text-white/90 shadow-[0_0_12px_rgba(255,255,255,0.06)]">
+                            {t}
+                          </span>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </div>

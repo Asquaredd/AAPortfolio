@@ -34,12 +34,7 @@ export default function Hero() {
     <>
       <Navbar />
 
-      <motion.section className="relative min-h-screen w-full bg-black overflow-hidden px-4 pt-28 pb-16 sm:px-6 sm:pt-32 sm:pb-20">
-        {/* Background Glow */}
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[85vw] w-[85vw] rounded-full bg-white/[0.03] blur-[120px] sm:h-[70vw] sm:w-[70vw] lg:h-[55vw] lg:w-[55vw]" />
-        </div>
-
+      <motion.section className="relative min-h-screen w-full overflow-hidden px-4 pt-28 pb-16 sm:px-6 sm:pt-32 sm:pb-20">
         {mounted && (
           <div className="relative z-10 mx-auto flex min-h-[calc(100vh-11rem)] w-full max-w-5xl flex-col items-center justify-center gap-10 text-center sm:gap-12">
             <motion.div
