@@ -1,7 +1,6 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { motion } from "framer-motion";
 
 /* ------------------------------- */
 const polaroids = [
@@ -33,28 +32,11 @@ const cards = [
 ];
 
 export default function About() {
-  const ref = useRef<HTMLDivElement | null>(null);
-
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"],
-  });
-
-  const sectionOpacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0, 1, 1, 0]);
-  const sectionScale = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0.85, 1, 1, 0.85]);
-
   return (
     <motion.section
-      ref={ref}
       id="about"
-      style={{ opacity: sectionOpacity, scale: sectionScale }}
-      className="relative min-h-screen bg-black overflow-hidden flex items-center justify-center px-8 md:px-20 py-24"
+      className="relative min-h-screen overflow-hidden flex items-center justify-center px-8 md:px-20 py-24"
     >
-      {/* Background glow */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-white/5 rounded-full blur-[150px]" />
-      </div>
-
       <div className="relative z-10 max-w-6xl w-full grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
 
         {/* LEFT */}
@@ -81,7 +63,7 @@ export default function About() {
                 className="absolute flex items-center justify-center cursor-pointer"
                 style={{
                   left: "50%",
-                  top: "50%",
+                  top: "75%",
                   x: card.x,
                   y: "-50%",
                   translateX: "-50%",
@@ -102,7 +84,7 @@ export default function About() {
               >
                 {/* Glow */}
                 <div
-                  className="absolute w-[110px] h-[110px] rounded-full blur-3xl"
+                  className="absolute w-[140px] h-[140px] rounded-full blur-3xl"
                   style={{
                     background: card.glow,
                     opacity: 0.25,
@@ -113,7 +95,7 @@ export default function About() {
                 <img
                   src={card.image}
                   alt={card.title}
-                  className="w-[80px] object-contain drop-shadow-[0_10px_30px_rgba(0,0,0,0.6)]"
+                  className="w-[96px] object-contain drop-shadow-[0_10px_30px_rgba(0,0,0,0.6)]"
                 />
               </motion.div>
             ))}

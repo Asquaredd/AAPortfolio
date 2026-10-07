@@ -1,11 +1,10 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef, useState } from "react";
+import { motion } from "framer-motion";
+import { useState } from "react";
 import { Mail, Linkedin, Send, Github } from "lucide-react";
 
 export default function Contact() {
-  const ref = useRef<HTMLElement | null>(null);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -17,25 +16,6 @@ export default function Contact() {
     { icon: <Linkedin size={28} />, href: "https://www.linkedin.com/in/aman-adhikari/" },
     { icon: <Mail size={28} />, href: "mailto:amanadhikarisso@gmail.com?subject=Portfolio%20Inquiry" },
   ];
-
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"],
-  });
-
-  const opacity = useTransform(
-    scrollYProgress,
-    [0, 0.2, 0.6, 1],
-    [0, 0.85, 1, 0.7]
-  );
-
-  const scale = useTransform(
-    scrollYProgress,
-    [0, 0.2, 1],
-    [0.96, 1, 0.98]
-  );
-
-  const y = useTransform(scrollYProgress, [0, 0.5], [80, 0]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -52,20 +32,9 @@ export default function Contact() {
 
   return (
     <motion.section
-      ref={ref}
       id="contact"
-      style={{ opacity, scale, y }}
-      className="relative min-h-screen bg-black overflow-hidden flex items-center justify-center px-8 py-24"
+      className="relative min-h-screen overflow-hidden flex items-center justify-center px-8 py-24"
     >
-      {/* BACKGROUND GLOW */}
-      <div className="absolute inset-0 pointer-events-none">
-        <motion.div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] bg-white/10 rounded-full blur-[200px]"
-          animate={{ scale: [1, 1.2, 1], rotate: [0, 180, 360] }}
-          transition={{ duration: 50, repeat: Infinity, ease: "linear" }}
-        />
-      </div>
-
       {/* CONTENT */}
       <motion.div className="relative z-10 w-full max-w-5xl text-center">
         <motion.h2

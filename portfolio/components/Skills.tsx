@@ -2,8 +2,6 @@
 
 import {
   motion,
-  useScroll,
-  useTransform,
   useReducedMotion,
   useMotionValue,
   useAnimationFrame,
@@ -34,25 +32,7 @@ import {
 } from "react-icons/si";
 
 export default function Skills() {
-  const ref = useRef<HTMLDivElement | null>(null);
   const shouldReduceMotion = useReducedMotion();
-
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"],
-  });
-
-  const opacity = useTransform(
-    scrollYProgress,
-    [0, 0.2, 0.8, 1],
-    [0, 1, 1, 0]
-  );
-
-  const scale = useTransform(
-    scrollYProgress,
-    [0, 0.2, 0.8, 1],
-    [0.95, 1, 1, 0.95]
-  );
 
   const row1 = [
     { name: "Python", icon: <SiPython />, hover: "hover:text-yellow-400" },
@@ -159,18 +139,10 @@ export default function Skills() {
 
   return (
     <motion.section
-      ref={ref}
       id="skills"
-      style={{ opacity }}
-      className="relative min-h-screen bg-black overflow-hidden px-6 sm:px-12 lg:px-20 py-24"
+      className="relative min-h-screen overflow-hidden px-6 sm:px-12 lg:px-20 py-24"
     >
-      {/* Softer background gradients */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/3 -right-1/4 w-[800px] h-[800px] bg-purple-600/5 rounded-full blur-[120px]" />
-        <div className="absolute -bottom-1/4 -left-1/4 w-[600px] h-[600px] bg-cyan-600/5 rounded-full blur-[120px]" />
-      </div>
-
-      <motion.div style={{ scale }} className="relative z-10 max-w-[1600px] mx-auto">
+      <div className="relative z-10 max-w-[1600px] mx-auto">
         <div className="text-center mb-24">
           <h2 className="text-5xl lg:text-6xl font-bold text-white mb-4">
             My Skills
@@ -185,7 +157,7 @@ export default function Skills() {
           <MarqueeRow items={row2} reverse />
           <MarqueeRow items={row3} />
         </div>
-      </motion.div>
+      </div>
     </motion.section>
   );
 }
